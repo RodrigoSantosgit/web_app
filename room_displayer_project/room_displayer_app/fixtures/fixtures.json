@@ -1,0 +1,306 @@
+[
+  {
+    "model": "room_displayer_app.Building",
+    "pk":1,
+    "fields": {
+      "id": 4,
+      "name": "DETI"
+    }
+  },
+  {
+    "model": "room_displayer_app.Room",
+    "pk":2,
+    "fields": {
+      "id": 415,
+      "name": "4.1.05" ,
+      "capacity": 30,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+   {
+    "model": "room_displayer_app.Room",
+    "pk":3,
+    "fields": {
+      "id": 4111,
+      "name": "4.1.11" ,
+      "capacity": 15,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+   {
+    "model": "room_displayer_app.Room",
+    "pk":4,
+    "fields": {
+      "id": 4210,
+      "name": "4.2.10" ,
+      "capacity": 35,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+  {
+    "model": "room_displayer_app.Room",
+    "pk":5,
+    "fields": {
+      "id": 427,
+      "name": "4.2.07" ,
+      "capacity": 30,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+  {
+    "model": "room_displayer_app.Room",
+    "pk":6,
+    "fields": {
+      "id": 4315,
+      "name": "4.3.15" ,
+      "capacity": 10,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+  {
+    "model": "room_displayer_app.Room",
+    "pk":7,
+    "fields": {
+      "id": 441,
+      "name": "anf IV" ,
+      "capacity": 80,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+   {
+    "model": "room_displayer_app.Room",
+    "pk":8,
+    "fields": {
+      "id": 442,
+      "name": "anf V" ,
+      "capacity": 100,
+      "email": ,
+      "building_id": 4 
+    }
+  },
+  {
+    "model": "room_displayer_app.EventType",
+    "pk":9,
+    "fields": {
+      "id": 1,
+      "name": "aula" 
+    }
+  },
+   {
+    "model": "room_displayer_app.EventType",
+    "pk":10,
+    "fields": {
+      "id": 2,
+      "name": "teste" 
+    }
+  },
+   {
+    "model": "room_displayer_app.EventType",
+    "pk":11,
+    "fields": {
+      "id": 3,
+      "name": "workshop" 
+    }
+  },
+
+    {
+    "model": "room_displayer_app.Event",
+    "pk":12,
+    "fields": {
+      "id": 10,
+      "name": "AR TP P1" ,
+      "Start_date": "2020-04-09 9:00",
+      "End_date":   "2020-04-09 11:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 415
+    }
+  },
+
+    {
+    "model": "room_displayer_app.Event",
+    "pk":13,
+    "fields": {
+      "id": 1,
+      "name": "AR TP P1" ,
+      "Start_date": "2020-04-09 9:00",
+      "End_date":   "2020-04-09 11:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 415
+    }
+  },
+  
+      {
+    "model": "room_displayer_app.Event",
+    "pk":14,
+    "fields": {
+      "id": 2,
+      "name": "AR T" ,
+      "Start_date": "2020-04-09 14:00",
+      "End_date":   "2020-04-09 15:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 441
+    }
+  },
+ 
+     {
+    "model": "room_displayer_app.Event",
+    "pk":15,
+    "fields": {
+      "id": 3,
+      "name": "BD" ,
+      "Start_date": "2020-04-09 9:00",
+      "End_date":   "2020-04-09 11:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 441
+    }
+  },
+
+     {
+    "model": "room_displayer_app.Event",
+    "pk":16,
+    "fields": {
+      "id": 4,
+      "name": "AC2" ,
+      "Start_date": "2020-04-09 11:30",
+      "End_date":   "2020-04-09 13:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 441
+    }
+  },
+ 
+     {
+    "model": "room_displayer_app.Event",
+    "pk":17,
+    "fields": {
+      "id": 5,
+      "name": "IHC" ,
+      "Start_date": "2020-04-09 16:00",
+      "End_date":   "2020-04-09 17:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 441
+    }
+  },
+
+     {
+    "model": "room_displayer_app.Event",
+    "pk":18,
+    "fields": {
+      "id": 6,
+      "name": "PEI" ,
+      "Start_date": "2020-04-09 10:00",
+      "End_date":   "2020-04-09 17:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 442
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":19,
+    "fields": {
+      "id": 7,
+      "name": "p3" ,
+      "Start_date": "2020-04-09 12:00",
+      "End_date":   "2020-04-09 13:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 415
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":20,
+    "fields": {
+      "id": 8,
+      "name": "p3 p2" ,
+      "Start_date": "2020-04-09 11:00",
+      "End_date":   "2020-04-09 13:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 4111
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":21,
+    "fields": {
+      "id": 9,
+      "name": "ar" ,
+      "Start_date": "2020-04-09 14:00",
+      "End_date":   "2020-04-09 18:00",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 4111
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":22,
+    "fields": {
+      "id": 11,
+      "name": "FR" ,
+      "Start_date": "2020-04-09 9:00",
+      "End_date":   "2020-04-09 10:30",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 4210
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":23,
+    "fields": {
+      "id": 12,
+      "name": "FR" ,
+      "Start_date": "2020-04-09 12:00",
+      "End_date":   "2020-04-09 14:30",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 4210
+    }
+  },
+
+      {
+    "model": "room_displayer_app.Event",
+    "pk":24,
+    "fields": {
+      "id": 11,
+      "name": "FR" ,
+      "Start_date": "2020-04-09 9:00",
+      "End_date":   "2020-04-09 10:30",
+      "type": 1,
+      "participants" : ,
+      "building_id" : 4,
+      "room_id": 4210
+    }
+  },
+]

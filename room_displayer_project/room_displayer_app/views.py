@@ -21,7 +21,8 @@ def departments_book(request):
 
 
 def department_r_timetable(request, dep_id):
-    
+    context = {
+	}
     return render(request, 'horario.html', context)
 
 def department_detail(request, dep_id):

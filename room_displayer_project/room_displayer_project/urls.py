@@ -23,5 +23,5 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('room_displayer_app.urls')),
-    path('', RedirectView.as_view(url='room_displayer_app/')),
+    path('', RedirectView.as_view(url='home/')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
