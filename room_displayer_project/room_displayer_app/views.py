@@ -56,7 +56,7 @@ def room_event(request, room_id):
 def book(request):
     context = {
 	}
-    return render(request, 'departamentos.html', context=context)
+    return render(request, 'reserva.html', context=context)
 
 ######################################################################################
 
@@ -106,12 +106,13 @@ def check_room_event(rid, time):
     for e in events:
         sd = e.Start_date
         ed = e.End_date
-        if int(sd.strftime("%H")) <= hora:
-            if int(ed.strftime("%H")) > hora:
-                return False
-            elif int(ed.strftime("%H")) == hora:
-                if int(ed.strftime("%M")) > int(time.strftime("%M")):
+        if int(sd.strftime("%w")) == int(time.strftime("%w")):
+            if int(sd.strftime("%H")) <= hora:
+                if int(ed.strftime("%H")) > hora:
                     return False
+                elif int(ed.strftime("%H")) == hora:
+                    if int(ed.strftime("%M")) > int(time.strftime("%M")):
+                        return False
 
 
     return True
