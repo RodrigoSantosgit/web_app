@@ -67,9 +67,8 @@ def room_event(request, room_id):
 ######################################################################################
 
 def book(request):
-    context = {
-	}
-    return render(request, 'reserva.html', context=context)
+    context = {'dep' : "DETI", 'sala' : "ANF 5", 'horario' : "2020/04/17-17:00/18:00"}
+    return render(request, 'reserva.html', context)
 
 ######################################################################################
 

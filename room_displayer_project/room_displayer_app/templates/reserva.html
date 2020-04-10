@@ -32,7 +32,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'book' %}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
         {% load static %}
         <img class="img-profile" src="{% static 'img/ico.png' %}" width="30%"></img>
         <div class="sidebar-brand-text mx-3">DETI RD</div>
@@ -45,7 +45,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'index' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Início</span></a>
       </li>
 
       <!-- Divider -->
@@ -152,32 +152,59 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Salas</h1>
-          </div>
-		  
-		  <!-- Basic Card Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Departamento de Eletrónica Telecomunicações e Informática</h6>
-            </div>
-            <div class="card-body text-center">
-              {% for room in rooms %}
-          			<a href="{% url 'book-room-timetable' 4 room.id %}">
-                  {{ room }} 
-          			  <p></p>
-          			</a>
-          			<div class="dropdown-divider"></div>
-          			<p></p>
-          		{% endfor %}
-            </div>
+            <h1 class="h3 mb-0 text-gray-800">Reserva</h1>
           </div>
 
-		</div>
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Grow In Utility -->
+            <div class="col-lg-6">
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Detalhes da Reserva:</h6>
+                </div>
+                <div class="card-body">
+                  
+                  <p class="text-lg text-gray-900">Sala: {{ dep }}</p>
+
+                  <p class="text-lg text-gray-900">Departamento: {{ sala }}</p>
+
+                  <p class="text-lg text-gray-900">Horário: {{ horario }}</p>
+
+                  <p class="mb-0 small">Nota: Confirma os dados relativos á tua reserva.</p>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Grow In Utility -->
+            <div class="col-lg-6">
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Participantes:</h6>
+                </div>
+                <div class="card-body">
+                  <form class="user">
+                    <div class="form-group">
+                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                    </div>
+                    <div class="form-group">
+                      <input type="email" class="form-control form-control-user" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                    </div>
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-user btn-block">
+                      Efetuar reserva
+                    </a>
+                  </form>
+                  </br>
+                  <p class="mb-0 small">Nota: Opcional.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
-
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
