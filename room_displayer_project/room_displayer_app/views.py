@@ -23,13 +23,26 @@ def departments_book(request):
     context = {
 	}
     return render(request, 'departamentos_reserva.html', context=context)
+######################################################################################
+
+def depart_book_rooms(request, dep_id):
+    depart = get_object_or_404(Building, id=dep_id)
+
+    rooms = get_list_or_404(Room, building_id=dep_id)
+
+    context = {'depart':depart, 'rooms':rooms}
+    return render(request, 'departamento_reserva_salas.html', context)
+
+######################################################################################
+def room_book_timetable(request, dep_id, room_id):
+    events = get_list_or_404(Event, room_id=room_id)
+    context = {
+	    'events' : events
+	}
+    return render(request, 'horario_book_c.html', context=context)
 
 ######################################################################################
 
-def department_r_timetable(request, dep_id):
-    context = {
-	}
-    return render(request, 'horario.html', context)
 
 ######################################################################################
 
