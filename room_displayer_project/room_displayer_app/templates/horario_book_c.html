@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>jQuery Fullcalendar Integration with example</title>
-<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" rel="stylesheet"/>
-<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.print.css" rel="stylesheet"  media="print" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
+
+  <title>DETI RD - Reservations</title>
+
+  {% load static %}
+  <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.print.css" rel="stylesheet"  media="print" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
   <!-- Custom fonts for this template-->
   {% load static %}
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -24,8 +25,6 @@
   {% load static %}
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
-
-  <title>DETI_RD - Reservations</title>
 </head>
 
 <body id="page-top">
@@ -162,46 +161,96 @@
             <h1 class="h3 mb-0 text-gray-800">Horário</h1>
           </div>
 
+			<div id="calendar" class="container my-auto"></div>
+			<script type="text/javascript">    
+				$(document).ready(function(){
+			        var calendar = $("#calendar").fullCalendar({  
+			            header: {
+			                left: 'today',
+			                center: 'title',
+			                right: 'agendaWeek,agendaDay'
+			            },
+			            navLinks: true, 
+			            editable: true,
+			            eventLimit: true, 
+			            events: [
+			                {
+			                    title  : 'event1',
+			                    start  : '2020-04-11'
+			                },
+			                {
+			                    title  : 'event2',
+			                    start  : '2020-04-11',
+			                    end    : '2020-04-12'
+			                },
+			                {
+			                    title  : 'event3',
+			                    start  : '2020-04-12T12:30:00',
+			                    allDay : false // will make the time show
+			                }
+			            ],  // request to load current events
+			           
+			        });
+			        
+			     });
+			</script>
+			
+			</br>
 
+		</div>
+	  </div>
 
+	  <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; DETI RD 2020</span>
+          </div>
+        </div>
+      </footer>
 
+	</div>
+  </div>
 
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div id="calendar" class="container my-auto"></div>
-<script type="text/javascript">    
-$(document).ready(function(){
-        var calendar = $("#calendar").fullCalendar({  
-            header: {
-                left: 'today',
-                center: 'title',
-                right: 'agendaWeek,agendaDay'
-            },
-            navLinks: true, 
-            editable: true,
-            eventLimit: true, 
-            events: [
-                {
-                    title  : 'event1',
-                    start  : '2020-04-11'
-                },
-                {
-                    title  : 'event2',
-                    start  : '2020-04-11',
-                    end    : '2020-04-12'
-                },
-                {
-                    title  : 'event3',
-                    start  : '2020-04-12T12:30:00',
-                    allDay : false // will make the time show
-                }
-            ],  // request to load current events
-           
-        });
-        
-     });
-</script>
+  <!-- Bootstrap core JavaScript-->
+  {% load static %}
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-</div>
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
 </body>
 </html>
