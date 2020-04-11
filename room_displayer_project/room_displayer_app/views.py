@@ -35,7 +35,10 @@ def depart_book_rooms(request, dep_id):
 
 ######################################################################################
 def room_book_timetable(request, dep_id, room_id):
-    events = get_list_or_404(Event, room_id=room_id)
+    get_events = get_list_or_404(Event, room_id=room_id)
+    events= []
+    for e in get_events:
+        events.append({'id':e.id,'title':e.name, 'start':e.Start_date, 'end':e.End_date})
     context = {
 	    'events' : events
 	}
