@@ -146,7 +146,7 @@
 
         </nav>
         <!-- End of Topbar -->
-
+        {% block main %}
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -158,16 +158,14 @@
 		  <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              {% for sala in name %}
-              <h6 class="m-0 font-weight-bold text-primary">Sala {{sala}}</h6>
-              {% endfor %}
+              <h6 class="m-0 font-weight-bold text-primary">Sala {{name}}</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				  <thead>
                     <tr>
-					  <th></th>
+					  <th><a href="{% url 'book' %}">-</a></th>
                       <th>Segunda</th>
                       <th>Terça</th>
                       <th>Quarta</th>
@@ -177,91 +175,90 @@
                   </thead>
 				  <tr>
                       <th>9:00</th>
-					  <td>AlgC P3 - Joaquim Madeira</td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg9}}</td>
+					  <td>{{terca9}}</td>
+					  <td>{{quarta9}}</td>
+					  <td>{{quinta9}}</td>
+					  <td>{{sexta9}}</td>
 				  </tr>
 				  <tr>
                       <th>10:00</th>
-					  <td>AlgC P3 - Joaquim Madeira</td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg10}}</td>
+					  <td>{{terca10}}</td>
+					  <td>{{quarta10}}</td>
+					  <td>{{quinta10}}</td>
+					  <td>{{sexta10}}</td>
 				  </tr>
 				  <tr>
                       <th>11:00</th>
-					  <td></td>
-					  <td></td>
-					  <td>BD P1 - Carlos Costa</td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg11}}</td>
+					  <td>{{terca11}}</td>
+					  <td>{{quarta11}}</td>
+					  <td>{{quinta11}}</td>
+					  <td>{{sexta11}}</td>
 				  </tr>
 				  <tr>
                       <th>12:00</th>
-					  <td></td>
-					  <td></td>
-					  <td>BD P1 - Carlos Costa</td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg12}}</td>
+					  <td>{{terca12}}</td>
+					  <td>{{quarta12}}</td>
+					  <td>{{quinta12}}</td>
+					  <td>{{sexta12}}</td>
 				  </tr>
 				  <tr>
                       <th>13:00</th>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg13}}</td>
+					  <td>{{terca13}}</td>
+					  <td>{{quarta13}}</td>
+					  <td>{{quinta13}}</td>
+					  <td>{{sexta13}}</td>
 				  </tr>
 				  <tr>
                       <th>14:00</th>
-					  <td></td>
-					  <td>IHC P2 - Beatriz Sousa</td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg14}}</td>
+					  <td>{{terca14}}</td>
+					  <td>{{quarta14}}</td>
+					  <td>{{quinta14}}</td>
+					  <td>{{sexta14}}</td>
 				  </tr>
 				  <tr>
                       <th>15:00</th>
-					  <td></td>
-					  <td>IHC P2 - Beatriz Sousa</td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-				  </tr>
+					  <td>{{seg15}}</td>
+					  <td>{{terca15}}</td>
+					  <td>{{quarta15}}</td>
+					  <td>{{quinta15}}</td>
+					  <td>{{sexta15}}</td>
 				  <tr>
                       <th>16:00</th>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td>LFA P5 - Artur</td>
-					  <td></td>
+					  <td>{{seg16}}</td>
+					  <td>{{terca16}}</td>
+					  <td>{{quarta16}}</td>
+					  <td>{{quinta16}}</td>
+					  <td>{{sexta16}}</td>
 				  </tr>
 				  <tr>
                       <th>17:00</th>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td>LFA P5 - Artur</td>
-					  <td></td>
+					  <td>{{seg17}}</td>
+					  <td>{{terca17}}</td>
+					  <td>{{quarta17}}</td>
+					  <td>{{quinta17}}</td>
+					  <td>{{sexta17}}</td>
 				  </tr>
 				  <tr>
                       <th>18:00</th>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg18}}</td>
+					  <td>{{terca18}}</td>
+					  <td>{{quarta18}}</td>
+					  <td>{{quinta18}}</td>
+					  <td>{{sexta18}}</td>
 				  </tr>
 				  <tr>
                       <th>19:00</th>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
-					  <td></td>
+					  <td>{{seg19}}</td>
+					  <td>{{terca19}}</td>
+					  <td>{{quarta19}}</td>
+					  <td>{{quinta19}}</td>
+					  <td>{{sexta19}}</td>
 				  </tr>
 				  <tr>
                       <th>20:00</th>
@@ -279,7 +276,7 @@
 		  
 		</div>
         <!-- /.container-fluid -->
-
+        {% endblock %}
       </div>
       <!-- End of Main Content -->
 

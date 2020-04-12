@@ -162,8 +162,8 @@
             </div>
             <div class="card-body text-center">
 			        {% for room in rooms %}
-                <a href="{% url 'timetable' 4 room %}">
-                  {{room}}
+                <a href="{% url 'timetable' 4 room.id %}">
+                  {{room.name}}
                   <p></p>
                 </a>
                 <div class="dropdown-divider"></div>
