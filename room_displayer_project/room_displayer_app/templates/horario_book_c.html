@@ -164,10 +164,60 @@
           </div>
 
 
-		  <div id="calendar" class="container my-auto"></div>
-		  <script type="text/javascript" src="{% static 'calendar.js' %}">    
-	        {{events}}
-		  </script>
+		  <div id="calendar" class="container my-auto">
+
+
+</div>
+		  <script type="text/javascript">    
+$(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+ 	header: {
+	left: '',
+	center: 'title',
+	right: 'agendaWeek,agendaDay'
+        },
+        weekends: false,
+        defaultView: 'agendaWeek',
+    	
+	//slotLabelInterval:'Duration',
+
+	axisFormat:'H(:mm)',
+
+	contentHeight: "auto",
+	slotDuration: "00:30:00",
+	selectable: true,
+
+	views: {
+		agendaWeek: {
+		slotLabelFormat: ['H(:mm)'],
+		allDaySlot: true,
+
+		allDayText:'dia todo',
+
+		minTime:'08:00:00',
+
+		maxTime:'21:00:00',
+		//displayEventTime: true,
+		slotEventOverlap:false,
+			},
+		},     
+	events: [
+		{% for e in events %}
+		{ 
+			title:'{{ e.name }}',
+			start:'{{ e.Start_date|date:"Y-m-d H:i:s" }}',
+			end:'{{ e.End_date|date:"Y-m-d H:i:s" }}',
+			
+		},
+		{% endfor %}
+	
+	]
+        });
+    });
+
+
+</script>
 
 
 		  </br>
