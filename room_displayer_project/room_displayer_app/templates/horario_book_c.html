@@ -9,6 +9,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 
 
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -167,12 +168,14 @@
 		  <div id="calendar" class="container my-auto">
 
 
-</div>
-		  <script type="text/javascript">    
+</div>  
+		  <script type="text/javascript">  
+  
 $(document).ready(function() {
 
     $('#calendar').fullCalendar({
- 	header: {
+ 	plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+	header: {
 	left: '',
 	center: 'title',
 	right: 'agendaWeek,agendaDay'
@@ -183,10 +186,26 @@ $(document).ready(function() {
 	//slotLabelInterval:'Duration',
 
 	axisFormat:'H(:mm)',
-
+	
 	contentHeight: "auto",
 	slotDuration: "00:30:00",
+	
 	selectable: true,
+      	selectMirror: true,
+      	select: function(start, end) {
+		var txt;
+ 		var st = start.format("hh:mm");
+		var e = end.format("hh:mm");
+		  var r = confirm("Reservar das " +" "+ st +" às "+e+"?");
+		  if (r == true) {
+		    location.href="{% url 'book' %}"
+		  } else {
+		    txt = "false";
+		  }
+
+ 		document.getElementById("demo").innerHTML = txt;
+      },
+      editable: false,
 
 	views: {
 		agendaWeek: {
