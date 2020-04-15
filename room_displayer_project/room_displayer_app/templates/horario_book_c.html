@@ -168,7 +168,7 @@
 		  <div id="calendar" class="container my-auto">
 
 
-</div>  
+</div>  	
 		  <script type="text/javascript">  
   
 $(document).ready(function() {
@@ -193,12 +193,14 @@ $(document).ready(function() {
 	selectable: true,
       	selectMirror: true,
       	select: function(start, end) {
+		var dep = "{{dep_id}}";
+		var room = "{{room_id}}";
 		var txt;
  		var st = start.format("hh:mm");
 		var e = end.format("hh:mm");
 		  var r = confirm("Reservar das " +" "+ st +" às "+e+"?");
 		  if (r == true) {
-		    location.href="{% url 'book' %}"
+		    post("{% url 'book'%}", {'dep_id': dep, 'room_id':room, 'start':start.format(), 'end': end.format() });
 		  } else {
 		    txt = "false";
 		  }
@@ -231,8 +233,31 @@ $(document).ready(function() {
 		},
 		{% endfor %}
 	
-	]
+	],
         });
+
+	function post(path, parameters) {
+    var form = $('<form></form>');
+
+    form.attr("method", "post");
+    form.attr("action", path);
+
+    $.each(parameters, function(key, value) {
+        var field = $('<input></input>');
+
+        field.attr("type", "hidden");
+        field.attr("name", key);
+        field.attr("value", value);
+
+        form.append(field);
+    });
+
+    // The form needs to be a part of the document in
+    // order for us to be able to submit it.
+    $(document.body).append(form);
+    form.submit();
+}
+
     });
 
 

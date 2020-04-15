@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404, get_list_or_404
 from .models import Building, Room, Event, EventType
 from django.http import Http404
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -38,7 +39,9 @@ def room_book_timetable(request, dep_id, room_id):
     get_events = get_list_or_404(Event, room_id=room_id)
 
     context = {
-	    'events' : get_events
+	    'events' : get_events,
+	    'dep_id' : dep_id,
+	    'room_id': room_id,
 	}
     return render(request, 'horario_book_c.html', context=context)
 
@@ -66,9 +69,14 @@ def room_event(request, room_id):
     return render(request, 'sala_event.html', context)
 
 ######################################################################################
-
+@csrf_exempt
 def book(request):
-    context = {'dep' : "DETI", 'sala' : "ANF 5", 'horario' : "2020/04/17-17:00/18:00"}
+    dep_id = Building.objects.get(id=request.POST['dep_id'])
+    room_id =Room.objects.get(id=request.POST['room_id'])
+    start= request.POST['start']
+    end=request.POST['end']
+
+    context = {'dep' : dep_id, 'sala' : room_id, 'start' : start.replace('T', ' '), 'end':end.replace('T', ' ')}
     return render(request, 'reserva.html', context)
 
 ######################################################################################
