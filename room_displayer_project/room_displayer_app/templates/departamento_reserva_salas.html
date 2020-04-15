@@ -32,7 +32,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'book' %}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
         {% load static %}
         <img class="img-profile" src="{% static 'img/ico.png' %}" width="30%"></img>
         <div class="sidebar-brand-text mx-3">DETI RD</div>
@@ -42,10 +42,10 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'index' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Início</span></a>
       </li>
 
       <!-- Divider -->
@@ -65,7 +65,7 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'departs-book' %}">
           <i class="fas fa-fw fa-calendar"></i>
           <span>Reservar</span>

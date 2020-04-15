@@ -50,7 +50,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'index' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Início</span></a>
@@ -65,7 +65,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'departs' %}">
           <i class="fas fa-fw fa-search"></i>
           <span>Salas Livres</span>
@@ -164,7 +164,9 @@
             <h1 class="h3 mb-0 text-gray-800">Horário</h1>
           </div>
 		
-		<h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
+		  <div class=" text-center align-items-center justify-content-between">
+		    <h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
+		  </div>
 		  <div id="calendar" class="container my-auto">
 
 
