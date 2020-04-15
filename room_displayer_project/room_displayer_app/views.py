@@ -80,7 +80,6 @@ def book(request):
     return render(request, 'reserva.html', context)
 
 ######################################################################################
-
 def salas(request, dep_id):
 
     rooms = get_list_or_404(Room, building_id=dep_id)
@@ -96,11 +95,17 @@ def salas(request, dep_id):
     return render(request, 'salas.html', salas)
 
 ######################################################################################
-
-def timetable(request):
+def horario_v2(request, dep_id, room_id):
+    sala_name = get_object_or_404(Room, id=room_id).name
+    get_events = get_list_or_404(Event, room_id=room_id)
+    room_name = Room.objects.get(id=room_id).name
     context = {
+	    'events' : get_events,
+            'dep_id': dep_id,
+            'room_id': room_id,
+            'room_name': room_name,
 	}
-    return render(request, 'horario.html', context=context)
+    return render(request, 'horario_v2.html', context=context)
 
 ######################################################################################
 

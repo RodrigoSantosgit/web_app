@@ -14,5 +14,5 @@ urlpatterns = [
     path('departaments/events/<int:room_id>/', views.room_event, name='room-event'),
     path('book/', views.book, name='book'),
     path('departamentos/salas/<int:dep_id>/', views.salas, name='rooms'),
-    path('departamentos/salas/<int:dep_id>/<int:room_id>/', views.horario, name='timetable'),
+    path('departamentos/salas/<int:dep_id>/<int:room_id>/', views.horario_v2, name='timetable'),
 ]
