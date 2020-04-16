@@ -24,6 +24,7 @@ def departments_book(request):
     context = {
 	}
     return render(request, 'departamentos_reserva.html', context=context)
+
 ######################################################################################
 
 def depart_book_rooms(request, dep_id):
@@ -35,6 +36,7 @@ def depart_book_rooms(request, dep_id):
     return render(request, 'departamento_reserva_salas.html', context)
 
 ######################################################################################
+
 def room_book_timetable(request, dep_id, room_id):
     get_events = get_list_or_404(Event, room_id=room_id)
 
@@ -60,15 +62,6 @@ def department_detail(request, dep_id):
 
 ######################################################################################
 
-def room_event(request, room_id):
-    room = get_object_or_404(Room, id=room_id)
-
-    events = get_list_or_404(Event, room_id=room_id)
-
-    context = {'room':room, 'events':events}
-    return render(request, 'sala_event.html', context)
-
-######################################################################################
 @csrf_exempt
 def book(request):
     dep_id = Building.objects.get(id=request.POST['dep_id'])
@@ -76,10 +69,13 @@ def book(request):
     start= request.POST['start']
     end=request.POST['end']
 
-    context = {'dep' : dep_id, 'sala' : room_id, 'start' : start.replace('T', ' '), 'end':end.replace('T', ' ')}
+    context = {'dep' : dep_id, 'sala' : room_id, 
+        'start' : (start[0:4] + '/' + start[5:7] + '/' + start[8:10] + ' - ' + start[11:13] + ':' + start[14:16]), 
+        'end' : (end[0:4] + '/' + end[5:7] + '/' + end[8:10] + ' - ' + end[11:13] + ':' + end[14:16])}
     return render(request, 'reserva.html', context)
 
 ######################################################################################
+
 def salas(request, dep_id):
 
     rooms = get_list_or_404(Room, building_id=dep_id)
@@ -95,6 +91,7 @@ def salas(request, dep_id):
     return render(request, 'salas.html', salas)
 
 ######################################################################################
+
 def horario_v2(request, dep_id, room_id):
     sala_name = get_object_or_404(Room, id=room_id).name
     get_events = get_list_or_404(Event, room_id=room_id)
@@ -127,7 +124,7 @@ def check_room_event(rid, time):
     for e in events:
         sd = e.Start_date
         ed = e.End_date
-        if int(sd.strftime("%w")) == int(time.strftime("%w")):
+        if (int(sd.strftime("%d")) == int(time.strftime("%d"))) and (int(sd.strftime("%m")) == int(time.strftime("%m"))) and (int(sd.strftime("%Y")) == int(time.strftime("%Y"))):
             if int(sd.strftime("%H")) <= hora:
                 if int(ed.strftime("%H")) > hora:
                     return False

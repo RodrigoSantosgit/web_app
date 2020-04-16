@@ -11,7 +11,6 @@ urlpatterns = [
     path('departments_book/<int:dep_id>/rooms/<int:room_id>', views.room_book_timetable, name='book-room-timetable'),
 
     path('departments/<int:dep_id>/', views.department_detail, name='depart-detail'),
-    path('departaments/events/<int:room_id>/', views.room_event, name='room-event'),
     path('book/', views.book, name='book'),
     path('departamentos/salas/<int:dep_id>/', views.salas, name='rooms'),
     path('departamentos/salas/<int:dep_id>/<int:room_id>/', views.horario_v2, name='timetable'),

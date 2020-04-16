@@ -165,11 +165,13 @@
                 </div>
                 <div class="card-body">
                   
-                  <p class="text-lg text-gray-900">Sala: {{ dep.name }}</p>
+                  <p class="text-lg text-gray-900">Sala: {{ sala.name }}</p>
 
-                  <p class="text-lg text-gray-900">Departamento: {{ sala.name }}</p>
+                  <p class="text-lg text-gray-900">Departamento: {{ dep.name }}</p>
 
-                  <p class="text-lg text-gray-900">Horário: {{ start }} às {{ end }}</p>
+                  <p class="text-lg text-gray-900">Horário: {{ start }}</p>
+
+                  <p class="text-lg text-gray-900">Duração: {{ end }}</p>
 
                   <p class="mb-0 small">Nota: Confirma os dados relativos á tua reserva.</p>
                 </div>
@@ -190,12 +192,13 @@
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
+                    <p class="mb-0 small">Nota: Opcional.</p>
+                    </br>
                     <a href="{% url 'index' %}" class="btn btn-primary btn-user btn-block">
                       Efetuar reserva
                     </a>
                   </form>
                   </br>
-                  <p class="mb-0 small">Nota: Opcional.</p>
                 </div>
               </div>
             </div>
