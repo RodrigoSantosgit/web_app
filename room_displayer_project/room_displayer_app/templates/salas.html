@@ -158,11 +158,43 @@
 		  
 		  <!-- Basic Card Example -->
           <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Departamento de Eletrónica Telecomunicações e Informática</h6>
+            <div href="#collapse1" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse1">
+              <h6 class="m-0 font-weight-bold text-primary">Piso 1 e Anfiteatros</h6>
             </div>
-            <div class="card-body text-center">
-			        {% for room in rooms %}
+            <div id="collapse1" class="collapse show card-body text-center">
+			        {% for room in rooms1 %}
+                <a href="{% url 'timetable' 4 room.id %}">
+                  {{room.name}}
+                  <p></p>
+                </a>
+                <div class="dropdown-divider"></div>
+                <p></p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card shadow mb-4">
+            <div href="#collapse2" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse2">
+              <h6 class="m-0 font-weight-bold text-primary">Piso 2</h6>
+            </div>
+            <div id="collapse2" class="collapse show card-body text-center">
+              {% for room in rooms2 %}
+                <a href="{% url 'timetable' 4 room.id %}">
+                  {{room.name}}
+                  <p></p>
+                </a>
+                <div class="dropdown-divider"></div>
+                <p></p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card shadow mb-4">
+            <div href="#collapse3" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse3">
+              <h6 class="m-0 font-weight-bold text-primary">Piso 3</h6>
+            </div>
+            <div id="collapse3" class="collapse show card-body text-center">
+              {% for room in rooms3 %}
                 <a href="{% url 'timetable' 4 room.id %}">
                   {{room.name}}
                   <p></p>

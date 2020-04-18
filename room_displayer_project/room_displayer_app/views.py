@@ -32,7 +32,20 @@ def depart_book_rooms(request, dep_id):
 
     rooms = get_list_or_404(Room, building_id=dep_id)
 
-    context = {'depart':depart, 'rooms':rooms}
+    context = {'depart':depart, 'rooms1': [], 'rooms2': [], 'rooms3': []}
+    for r in rooms:
+        r.name = r.name.upper()
+        if not (r.name[0].isdigit()):
+            context['rooms1'] = context['rooms1'] + [r]
+        elif int(r.name.split('.')[1]) == 1:
+            context['rooms1'] = context['rooms1'] + [r]
+        elif int(r.name.split('.')[1]) == 2:
+            context['rooms2'] = context['rooms2'] + [r]
+        elif int(r.name.split('.')[1]) == 3:
+            context['rooms3'] = context['rooms3'] + [r]
+
+
+    
     return render(request, 'departamento_reserva_salas.html', context)
 
 ######################################################################################
@@ -81,12 +94,19 @@ def salas(request, dep_id):
     rooms = get_list_or_404(Room, building_id=dep_id)
 
     time = datetime.now()
-    salas = {'rooms' : []}
+    salas = {'rooms1' : [], 'rooms2' : [], 'rooms3' : []}
 
     for r in rooms:
         if check_room_event(r.id, time):
             r.name = r.name.upper()
-            salas['rooms'] = salas['rooms'] + [r]          
+            if not (r.name[0].isdigit()):
+                salas['rooms1'] = salas['rooms1'] + [r]
+            elif int(r.name.split('.')[1]) == 1:
+                salas['rooms1'] = salas['rooms1'] + [r]
+            elif int(r.name.split('.')[1]) == 2:
+                salas['rooms2'] = salas['rooms2'] + [r]
+            elif int(r.name.split('.')[1]) == 3:
+                salas['rooms3'] = salas['rooms3'] + [r]          
 
     return render(request, 'salas.html', salas)
 
