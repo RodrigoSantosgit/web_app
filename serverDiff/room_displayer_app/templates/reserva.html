@@ -263,6 +263,10 @@
 		var start = "{{sd}}";
 		var end = "{{ed}}";
 		
+		if (start.indexOf("T") < 0){
+		    document.getElementById("rsv").href="#";
+			return false;
+		}
 		post("{% url 'method'%}", {'dep_id': depart, 'room_id':room, 'start':start, 'end': end });
 		
 		function post(path, parameters) {
@@ -287,6 +291,17 @@
 			form.submit();
 		}
 		
+	}
+  </script>
+  
+  <script>
+	
+	//document.getElementById("page-top").addEventListener ("load", checkFail);
+	window.onload = function() {
+		var s = "{{sd}}";
+		if (s.indexOf("T") < 0) {
+		    alert("Reserva Falhada! Não podes exceder 2 horas, nem reservar para horas indisponíveis!");
+		}
 	}
   </script>
   
