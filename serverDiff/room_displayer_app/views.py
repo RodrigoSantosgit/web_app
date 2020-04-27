@@ -5,8 +5,11 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 import mysql.connector
 # Create your views here.
-mydb = mysql.connector.connect(host="localhost", user="room_displayer",passwd="Password!23", database="room_displayer")
+mydb = mysql.connector.connect(host="localhost", user="room_displayer",passwd="Password!23", database="room_displayer", charset='utf8', use_unicode=True)
 mycursor=mydb.cursor()
+mycursor.execute('SET NAMES utf8;') 
+mycursor.execute('SET CHARACTER SET utf8;') 
+mycursor.execute('SET character_set_connection=utf8;')
 
 def index(request):
     
@@ -183,6 +186,19 @@ def method(request):
 
     sd = request.POST['start']
     ed = request.POST['end']
+
+    if (int(ed[8:10]) != int(sd[8:10])) or (int(ed[11:13]) - int(sd[11:13])) > 2 or ((int(ed[11:13]) - int(sd[11:13])) == 2 and (int(ed[14:16]) - int(sd[14:16]) == 30)):
+        slQ = "SELECT * FROM Building WHERE id = %(id)s"
+        mycursor.execute(slQ, { 'id': request.POST.get('dep_id') })
+
+        dep = mycursor.fetchall()
+
+        slQ = "SELECT * FROM Room WHERE id = %(id)s"
+        mycursor.execute(slQ, { 'id': request.POST.get('room_id') })
+
+        room = mycursor.fetchall()
+        context = {'dep' : dep, 'sala' : room, 'start' : '', 'end' : '', 'sd' : '', 'ed' : ''}
+        return render(request, 'reserva.html', context=context)
 
     type = 3
 
