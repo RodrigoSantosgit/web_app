@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('departments/<int:dep_id>/', views.department_detail, name='depart-detail'),
     path('book/', views.book, name='book'),
-    path('departamentos/salas/<int:dep_id>/', views.salas, name='rooms'),
+    path('departamentos/salas/<int:dep_id>/<int:tD>', views.salas, name='rooms'),
     path('departamentos/salas/<int:dep_id>/<int:room_id>/', views.horario_v2, name='timetable'),
+    path('departamentos/saças/<int:dep_id>/<int:room_id>/location', views.location, name='location'),
 ]

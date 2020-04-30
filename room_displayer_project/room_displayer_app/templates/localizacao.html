@@ -43,7 +43,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'index' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Início</span></a>
@@ -58,7 +58,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'departs' %}">
           <i class="fas fa-fw fa-search"></i>
           <span>Salas Livres</span>
@@ -75,7 +75,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-    
+	  
       <!-- Nav Item - Pages Collapse Menu -->
       <!-- Nav Item - Charts -->
       <li class="nav-item">
@@ -151,158 +151,28 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Departamentos</h1>
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-			
-            <div class="col-xl-3 col-md-6 mb-4">
-			  <a href="{% url 'rooms' 4 15%}">
-                <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Eletrónica Telecomunicações e Infomática</div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-			  </a>
+          <div class="text-center align-items-center justify-content-betwen">
+            
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">Salas</h1>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Biologia</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class=" text-center align-items-center justify-content-between">
+              <h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Educação e Psicologia</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </br>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Edifício</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Complexo Pedagógico</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% load static %}
+            <img src="{% static 'rooms/rooms/4_1_2.jpg' %}"></img>
 
-		  </div>
-          <!-- Content Row -->
-          <div class="row">
-			<!--div class="card">
-			  <a href="#edificios" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="edificios">
-                <h6 class="m-0 font-weight-bold text-primary">Mostrar Mais</h6>
-              </a>
-            </div-->
-			
-			<div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Matemática</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-			
-			<div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Engenharia Mecânica</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-			
-			<div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Economia, Gestão, Engenharia Industrial e Turismo</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-			
-			<div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departamento</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Comunicação e Arte</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-			
-          </div>
 
-        </div>
+
+		    </div>
         <!-- /.container-fluid -->
 
+        </br>
+        
       </div>
       <!-- End of Main Content -->
 

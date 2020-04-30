@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404, get_list_or_404
 from .models import Building, Room, Event, EventType
 from django.http import Http404
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -89,24 +89,30 @@ def book(request):
 
 ######################################################################################
 
-def salas(request, dep_id):
+def salas(request, dep_id, tD=15):
 
     rooms = get_list_or_404(Room, building_id=dep_id)
 
     time = datetime.now()
-    salas = {'rooms1' : [], 'rooms2' : [], 'rooms3' : []}
+    timetD = datetime.now() + timedelta(minutes=tD)
+
+    salas = {'rooms1' : [], 'rooms2' : [], 'rooms3' : [], 'soonAvailable' : [], 'tD' : tD}
 
     for r in rooms:
         if check_room_event(r.id, time):
             r.name = r.name.upper()
+            fu = freeUntil(r.id, time)
             if not (r.name[0].isdigit()):
-                salas['rooms1'] = salas['rooms1'] + [r]
+                salas['rooms1'] = salas['rooms1'] + [(r, fu)]
             elif int(r.name.split('.')[1]) == 1:
-                salas['rooms1'] = salas['rooms1'] + [r]
+                salas['rooms1'] = salas['rooms1'] + [(r, fu)]
             elif int(r.name.split('.')[1]) == 2:
-                salas['rooms2'] = salas['rooms2'] + [r]
+                salas['rooms2'] = salas['rooms2'] + [(r, fu)]
             elif int(r.name.split('.')[1]) == 3:
-                salas['rooms3'] = salas['rooms3'] + [r]          
+                salas['rooms3'] = salas['rooms3'] + [(r, fu)]
+        elif check_room_event(r.id, timetD):
+            r.name = r.name.upper()
+            salas['soonAvailable'] = salas['soonAvailable'] + [r]        
 
     return render(request, 'salas.html', salas)
 
@@ -126,6 +132,17 @@ def horario_v2(request, dep_id, room_id):
 
 ######################################################################################
 
+def location(request, dep_id, room_id):
+
+    sala_name = get_object_or_404(Room, id=room_id).name.upper()
+
+    context = {
+        'room_name': sala_name,
+    }
+
+    return render(request, 'localizacao.html', context = context)
+
+######################################################################################
 ######################################################################################
 
 # FUNCOES AUXILIARES 
@@ -157,3 +174,31 @@ def check_room_event(rid, time):
 
 ######################################################################################
 
+def freeUntil(rid, time):
+
+    events = list(Event.objects.filter(room_id=rid))
+    soon = [20, 0]
+    hora = int(time.strftime("%H")) + 1
+
+
+    if len(events) == 0:
+        return "20:00"
+
+    for e in events:
+        sd = e.Start_date
+        ed = e.End_date
+        if (int(sd.strftime("%d")) == int(time.strftime("%d"))) and (int(sd.strftime("%m")) == int(time.strftime("%m"))) and (int(sd.strftime("%Y")) == int(time.strftime("%Y"))):
+            if int(sd.strftime("%H")) > hora:
+                if int(sd.strftime("%H")) < soon[0]:
+                    soon[0] = int(sd.strftime("%H"))
+                    soon[1] = int(sd.strftime("%M"))
+                elif int(sd.strftime("%H")) == soon[0]:
+                    if int(sd.strftime("%M")) < soon[1]:
+                        soon[1] = int(sd.strftime("%M"))
+
+    if soon[1] == 0:
+        return str(soon[0]) + ":" + str(soon[1]) + "0"
+    else:
+        return str(soon[0]) + ":" + str(soon[1])
+
+######################################################################################
