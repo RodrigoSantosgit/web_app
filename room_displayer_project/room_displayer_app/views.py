@@ -52,11 +52,13 @@ def depart_book_rooms(request, dep_id):
 
 def room_book_timetable(request, dep_id, room_id):
     get_events = get_list_or_404(Event, room_id=room_id)
+    room_name = Room.objects.get(id=room_id).name.upper()
 
     context = {
 	    'events' : get_events,
 	    'dep_id' : dep_id,
 	    'room_id': room_id,
+        'room_name': room_name,
 	}
     return render(request, 'horario_book_c.html', context=context)
 
@@ -118,6 +120,27 @@ def salas(request, dep_id, tD=15):
 
 ######################################################################################
 
+def salasSoon(request, dep_id, tD=30):
+
+    rooms = get_list_or_404(Room, building_id=dep_id)
+
+    time = datetime.now()
+    timetD = datetime.now() + timedelta(minutes=tD)
+
+    salas = {'soonAvailable' : [], 'tD' : tD}
+
+    for r in rooms:
+        if not check_room_event(r.id, time):
+            if check_room_event(r.id, timetD):
+                nextE = check_room_event(r.id, time, 1)
+                r.name = r.name.upper()
+                salas['soonAvailable'] = salas['soonAvailable'] + [(r, datetime(year=int(nextE.strftime("%Y")),month=int(nextE.strftime("%m")),day = int(nextE.strftime("%d")), hour= int(nextE.strftime("%H")), minute= int(nextE.strftime("%M")), second= 0)-
+                    datetime(year=int(time.strftime("%Y")),month=int(time.strftime("%m")),day = int(time.strftime("%d")), hour= int(time.strftime("%H")) + 1, minute= int(time.strftime("%M")), second = int(time.strftime("%S"))))]        
+
+    return render(request, 'salas_soon.html', salas)
+
+######################################################################################
+
 def horario_v2(request, dep_id, room_id):
     sala_name = get_object_or_404(Room, id=room_id).name
     get_events = get_list_or_404(Event, room_id=room_id)
@@ -149,7 +172,7 @@ def location(request, dep_id, room_id):
 
 ######################################################################################
 
-def check_room_event(rid, time):
+def check_room_event(rid, time, soon=0):
 
     events = list(Event.objects.filter(room_id=rid))
     
@@ -164,10 +187,16 @@ def check_room_event(rid, time):
         if (int(sd.strftime("%d")) == int(time.strftime("%d"))) and (int(sd.strftime("%m")) == int(time.strftime("%m"))) and (int(sd.strftime("%Y")) == int(time.strftime("%Y"))):
             if int(sd.strftime("%H")) <= hora:
                 if int(ed.strftime("%H")) > hora:
-                    return False
+                    if not soon:
+                        return False
+                    else :
+                        return ed
                 elif int(ed.strftime("%H")) == hora:
                     if int(ed.strftime("%M")) > int(time.strftime("%M")):
-                        return False
+                        if not soon:
+                            return False
+                        else:
+                            return ed
 
 
     return True

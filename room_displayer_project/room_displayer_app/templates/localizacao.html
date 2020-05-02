@@ -43,7 +43,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'index' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Início</span></a>
@@ -160,18 +160,11 @@
             <div class=" text-center align-items-center justify-content-between">
               <h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
             </div>
-
-            </br>
-
-            {% load static %}
-            <img src="{% static 'rooms/rooms/4_1_2.jpg' %}"></img>
-
-
+            
+            <img src="http://websig.ua.pt/ArcGIS/rest/services/ed4/electronica/MapServer/export?f=image&format=png&transparent=true&size=1000%2C600&layers=show%3A14&bbox=100,100"></img>
 
 		    </div>
         <!-- /.container-fluid -->
-
-        </br>
         
       </div>
       <!-- End of Main Content -->
