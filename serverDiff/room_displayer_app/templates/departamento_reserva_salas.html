@@ -163,10 +163,22 @@
             </div>
             <div id="collapse1" class="collapse show card-body text-center">
               {% for rid, rname, rc, re, rb in rooms1 %}
-                <a href="{% url 'book-room-timetable' 4 rid %}">
-                  {{rname}}
-                  <p></p>
-                </a>
+                <div class="row">
+                  <div class="text-center text-gray-800 col-md-5 col-lg-4">
+                    {{rname}}
+                    <p></p>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'book-room-timetable' 4 rid %}">
+                      Ver Horário
+                    </a>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'location' 4 rid %}">
+                      Localização
+                    </a>
+                  </div>
+                </div>
                 <div class="dropdown-divider"></div>
                 <p></p>
               {% endfor %}
@@ -179,10 +191,22 @@
             </div>
             <div id="collapse2" class="collapse show card-body text-center">
               {% for rid, rname, rc, re, rb in rooms2 %}
-                <a href="{% url 'book-room-timetable' 4 rid %}">
-                  {{rname}}
-                  <p></p>
-                </a>
+                <div class="row">
+                  <div class="text-center text-gray-800 col-md-5 col-lg-4">
+                    {{rname}}
+                    <p></p>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'book-room-timetable' 4 rid %}">
+                      Ver Horário
+                    </a>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'location' 4 rid %}">
+                      Localização
+                    </a>
+                  </div>
+                </div>
                 <div class="dropdown-divider"></div>
                 <p></p>
               {% endfor %}
@@ -195,10 +219,22 @@
             </div>
             <div id="collapse3" class="collapse show card-body text-center">
               {% for rid, rname, rc, re, rb in rooms3 %}
-                <a href="{% url 'book-room-timetable' 4 rid %}">
-                  {{rname}}
-                  <p></p>
-                </a>
+                <div class="row">
+                  <div class="text-center text-gray-800 col-md-5 col-lg-4">
+                    {{rname}}
+                    <p></p>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'book-room-timetable' 4 rid %}">
+                      Ver Horário
+                    </a>
+                  </div>
+                  <div class="text-center col-md-5 col-lg-4">
+                    <a href="{% url 'location' 4 rid %}">
+                      Localização
+                    </a>
+                  </div>
+                </div>
                 <div class="dropdown-divider"></div>
                 <p></p>
               {% endfor %}

@@ -165,6 +165,9 @@
             <h1 class="h3 mb-0 text-gray-800">Horário</h1>
           </div>
 
+		  <div class=" text-center align-items-center justify-content-between">
+            <h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
+          </div>
 
 		  <div id="calendar" class="container my-auto">
 
@@ -178,7 +181,7 @@ $(document).ready(function() {
  	plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
 	header: {
 	left: '',
-	center: 'title',
+	center: '',
 	right: 'agendaWeek,agendaDay'
         },
         weekends: false,
