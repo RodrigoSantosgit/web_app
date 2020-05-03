@@ -1,15 +1,15 @@
 from django.shortcuts import render,get_object_or_404, get_list_or_404
 from .models import Building, Room, Event, EventType
 from django.http import Http404
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 import mysql.connector
 # Create your views here.
-mydb = mysql.connector.connect(host="localhost", user="room_displayer",passwd="Password!23", database="room_displayer", charset='utf8', use_unicode=True)
+mydb = mysql.connector.connect(host="localhost", user="room_displayer",passwd="Password!23", database="room_displayer", charset='utf8mb4')
 mycursor=mydb.cursor()
 mycursor.execute('SET NAMES utf8;') 
-mycursor.execute('SET CHARACTER SET utf8;') 
-mycursor.execute('SET character_set_connection=utf8;')
+mycursor.execute('SET CHARACTER SET utf8mb4;') 
+
 
 def index(request):
     
@@ -61,10 +61,16 @@ def room_book_timetable(request, dep_id, room_id):
 
     get_events = mycursor.fetchall()
 
+    slQ = "SELECT * FROM Room WHERE id = %(id)s"
+    mycursor.execute(slQ, { 'id': room_id })
+
+    room_name = mycursor.fetchall()[0][1]
+
     context = {
 	    'events' : get_events,
 	    'dep_id' : dep_id,
 	    'room_id': room_id,
+	    'room_name' : room_name,
 	}
     return render(request, 'horario_book_c.html', context=context)
 
@@ -112,12 +118,13 @@ def salas(request, dep_id):
 
     for r in myresult:
         if check_room_event(r[0], time):
+            fu = freeUntil(r[0], time)
             if int(r[1].split('.')[1]) == 1:
-                salas['rooms1'] = salas['rooms1'] + [r]
+                salas['rooms1'] = salas['rooms1'] + [list(r) + [fu]]
             elif int(r[1].split('.')[1]) == 2:
-                salas['rooms2'] = salas['rooms2'] + [r]
+                salas['rooms2'] = salas['rooms2'] + [list(r) + [fu]]
             elif int(r[1].split('.')[1]) == 3:
-                salas['rooms3'] = salas['rooms3'] + [r]          
+                salas['rooms3'] = salas['rooms3'] + [list(r) + [fu]]          
 
     return render(request, 'salas.html', salas)
 
@@ -146,6 +153,42 @@ def horario_v2(request, dep_id, room_id):
 
 ######################################################################################
 
+def location(request, dep_id, room_id):
+
+    slQ = "SELECT * FROM Room WHERE id = %(id)s"
+    mycursor.execute(slQ, { 'id': room_id })
+
+    room = mycursor.fetchall()
+
+    sala_name = room[0][1]
+    context = {
+        'room_name': sala_name,
+    }
+
+    return render(request, 'localizacao.html', context = context)
+
+######################################################################################
+
+def salasSoon(request, dep_id, tD = 15):
+
+    time = datetime.now()
+    timetD = datetime.now() + timedelta(minutes=tD)
+    salas = {'rooms1' : [], 'rooms2' : [], 'rooms3' : []}
+
+    mycursor.execute("SELECT * FROM Room WHERE building_id = 4")
+
+    myresult = mycursor.fetchall()
+
+    salas = {'soonAvailable' : [], 'tD' : tD}
+
+    for r in myresult:
+        if not check_room_event(r[0], time):
+            if check_room_event(r[0], timetD):
+                salas['soonAvailable'] = salas['soonAvailable'] + [r]
+
+    return render(request, 'salas_soon.html', salas)
+
+######################################################################################
 ######################################################################################
 
 # FUNCOES AUXILIARES 
@@ -169,7 +212,10 @@ def check_room_event(rid, time):
         ed = e[3]
         if (int(sd.strftime("%d")) == int(time.strftime("%d"))) and (int(sd.strftime("%m")) == int(time.strftime("%m"))) and (int(sd.strftime("%Y")) == int(time.strftime("%Y"))):
             if int(sd.strftime("%H")) <= hora:
-                if int(ed.strftime("%H")) > hora:
+                if (int(sd.strftime("%H")) == hora) and (int(sd.strftime("%M")) <= int(time.strftime("%M"))):
+                    if int(ed.strftime("%H")) > hora:
+                        return False
+                elif int(ed.strftime("%H")) > hora:
                     return False
                 elif int(ed.strftime("%H")) == hora:
                     if int(ed.strftime("%M")) > int(time.strftime("%M")):
@@ -202,7 +248,7 @@ def method(request):
 
     type = 3
 
-    name = 'Reserva Rodrigo'
+    name = 'Reserva'
 
     participants = 1
     slQ = "SELECT * FROM Event"
@@ -228,3 +274,34 @@ def method(request):
 	    'room_id': room,
 	}
     return render(request, 'horario_book_c.html', context=context)
+
+######################################################################################
+
+def freeUntil(rid, time):
+
+    slQ = "SELECT * FROM Event WHERE room_id = %(id)s"
+    mycursor.execute(slQ, { 'id': rid })
+
+    events = mycursor.fetchall()
+    
+    hora = int(time.strftime("%H")) + 1
+    soon = [20, 0]
+    if len(events) == 0:
+        return "20:00"
+
+    for e in events:
+        sd = e[2]
+        ed = e[3]
+        if (int(sd.strftime("%d")) == int(time.strftime("%d"))) and (int(sd.strftime("%m")) == int(time.strftime("%m"))) and (int(sd.strftime("%Y")) == int(time.strftime("%Y"))):
+            if int(sd.strftime("%H")) > hora:
+                if int(sd.strftime("%H")) < soon[0]:
+                    soon[0] = int(sd.strftime("%H"))
+                    soon[1] = int(sd.strftime("%M"))
+                elif int(sd.strftime("%H")) == soon[0]:
+                    if int(sd.strftime("%M")) < soon[1]:
+                        soon[1] = int(sd.strftime("%M"))
+
+    if soon[1] == 0:
+        return str(soon[0]) + ":" + str(soon[1]) + "0"
+    else:
+        return str(soon[0]) + ":" + str(soon[1])

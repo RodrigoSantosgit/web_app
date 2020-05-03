@@ -14,4 +14,6 @@ urlpatterns = [
     path('book/', views.book, name='book'),
     path('departamentos/salas/<int:dep_id>/', views.salas, name='rooms'),
     path('departamentos/salas/<int:dep_id>/<int:room_id>/', views.horario_v2, name='timetable'),
+    path('departamentos/salas/<int:dep_id>/<int:room_id>/location', views.location, name='location'),
+    path('departamentos/soonAvailable/<int:dep_id>/<int:tD>', views.salasSoon, name='soonAvailable'),
 ]
