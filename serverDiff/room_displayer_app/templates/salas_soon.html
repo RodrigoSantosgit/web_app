@@ -154,106 +154,48 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Salas</h1>
-			<a href="{% url 'soonAvailable' 4 15%}"><button class="btn btn-primary">Ver Salas Futuramente Livres</button></a>
-          </div>
-		  
-		  <!-- Basic Card Example -->
-          <div class="card shadow mb-4">
-            <div href="#collapse1" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse1">
-              <h6 class="m-0 font-weight-bold text-primary">Piso 1 e Anfiteatros</h6>
-            </div>
-            <div id="collapse1" class="collapse show card-body text-center">
-			  
-			    {% for rid, rname, rc, re, rb, freeUntil in rooms1 %}
-                <div class="row">
-                  <div class="text-center text-gray-800 col-md-4 col-lg-3">
-                    {{rname}}
-                    <p></p>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    Livre até: {{freeUntil}}
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'timetable' 4 rid %}">
-                      Ver Horário
-                    </a>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'location' 4 rid %}">
-                      Localização
-                    </a>
-                  </div>
-                </div>
-                <div class="dropdown-divider"></div>
-                <p></p>
-				{%endfor%}
-              
-            </div>
+            <a href="{% url 'rooms' 4%}"><button class="btn btn-primary">Ver Salas Livres</button></a>
           </div>
 
           <div class="card shadow mb-4">
-            <div href="#collapse2" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse2">
-              <h6 class="m-0 font-weight-bold text-primary">Piso 2</h6>
-            </div>
-            <div id="collapse2" class="collapse show card-body text-center">
-              
-			    {% for rid, rname, rc, re, rb, freeUntil in rooms2 %}
-                <div class="row">
-                  <div class="text-center text-gray-800 col-md-4 col-lg-3">
-                    {{rname}}
-                    <p></p>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    Livre até: {{freeUntil}}
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'timetable' 4 rid %}">
-                      Ver Horário
-                    </a>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'location' 4 rid %}">
-                      Localização
-                    </a>
-                  </div>
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Livres em menos de {{tD}} minutos:</h6>
+              <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in text-center" aria-labelledby="dropdownMenuLink">
+                  <div class="dropdown-header">Tempo:</div>
+                    <a class="dropdown-item" href="{% url 'soonAvailable' 4 15%}">15 minutos</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'soonAvailable' 4 30%}">30 minutos</a>
                 </div>
-                <div class="dropdown-divider"></div>
-                <p></p>
-				{%endfor%}
-              
+              </div>
             </div>
-          </div>
-
-          <div class="card shadow mb-4">
-            <div href="#collapse3" class="card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapse3">
-              <h6 class="m-0 font-weight-bold text-primary">Piso 3</h6>
-            </div>
-            <div id="collapse3" class="collapse show card-body text-center">
-              
-			    {% for rid, rname, rc, re, rb, freeUntil in rooms3 %}
-                <div class="row">
-                  <div class="text-center text-gray-800 col-md-4 col-lg-3">
-                    {{rname}}
-                    <p></p>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    Livre até: {{freeUntil}}
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'timetable' 4 rid %}">
-                      Ver Horário
-                    </a>
-                  </div>
-                  <div class="text-center col-md-4 col-lg-3">
-                    <a href="{% url 'location' 4 rid %}">
-                      Localização
-                    </a>
-                  </div>
+            <div class="card-body text-center">
+              {% for rid, rname, rc, re, rb in soonAvailable %}
+              <div class="row">
+                <div class="text-center text-gray-800 col-md-5 col-lg-4">
+                  {{rname}}
+                  <p></p>
                 </div>
-                <div class="dropdown-divider"></div>
-                <p></p>
-				{%endfor%}
-              
+                <!--div class="text-center col-md-4 col-lg-3">
+                    Livre dentro:
+                </div-->
+                <div class="text-center col-md-5 col-lg-4">
+                  <a href="{% url 'timetable' 4 rid %}">
+                    Ver Horário
+                  </a>
+                </div>
+                <div class="text-center col-md-5 col-lg-4">
+                  <a href="{% url 'location' 4 rid %}">
+                    Localização
+                  </a>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <p></p>
+              {% endfor %}
             </div>
           </div>
 		  

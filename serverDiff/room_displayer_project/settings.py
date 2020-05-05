@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '((2ml-m#$!ryxnei%-3-c7zwit+8ap)j6%=)@+dg6=6-lvu=e8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["localhost","192.168.160.82"]
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'room_displayer_app',
+    'django_shibboleth' 
 ]
 
 MIDDLEWARE = [
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -103,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
+DEFAULT_CHARSET = 'utf-8'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -121,3 +124,26 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = '/home/oneadmin/mytestsite/static/'
+
+
+#AUTHENTICATION_BACKENDS = [
+#    'shibboleth.backends.ShibbolethRemoteUserBackend',
+#]
+
+
+
+SHIB_ATTRIBUTE_MAP = {
+    "HTTP_SHIB_IDENTITY_PROVIDER": (True, "idp"),
+    "HTTP_SHIB_SHARED_TOKEN": (True, "shared_token"),
+    "HTTP_SHIB_CN": (True, "cn"),
+    "HTTP_SHIB_MAIL": (True, "email"),
+    "HTTP_SHIB_GIVENNAME": (False, "first_name"),
+    "HTTP_SHIB_SN": (False, "last_name"),
+}
+SHIB_USERNAME = "shared_token"
+SHIB_EMAIL = "email"
+SHIB_FIRST_NAME = "first_name"
+SHIB_LAST_NAME = "last_name"
+
+LOGIN_URL = 'https://192.168.160.82/Shibboleth.sso/Login'
+
