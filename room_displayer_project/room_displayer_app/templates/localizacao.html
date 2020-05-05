@@ -161,14 +161,17 @@
               <h2 class="h3 mb-0 text-gray-800">Sala: {{room_name}}</h2>
             </div>
             
-            <img src="http://websig.ua.pt/ArcGIS/rest/services/ed4/electronica/MapServer/export?f=image&format=png&transparent=true&size=1000%2C600&layers=show%3A14&bbox=100,100"></img>
+            </br>
 
-		    </div>
+            <img id="sala" src=""></img>
+
+		      </div>
         <!-- /.container-fluid -->
-        
+        </div>
       </div>
       <!-- End of Main Content -->
 
+      </br>
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -209,6 +212,12 @@
     </div>
   </div>
 
+  <script type="text/javascript">
+    var b = "{{img}}";
+    var b_l = b.length;
+    var bf = b.substring(7, (b_l-6));
+    document.getElementById("sala").src = "data:image/png;base64," + bf;
+  </script>
   <!-- Bootstrap core JavaScript-->
   {% load static %}
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
