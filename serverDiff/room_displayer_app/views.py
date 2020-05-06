@@ -4,6 +4,12 @@ from django.http import Http404
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 import mysql.connector
+import cv2
+import numpy
+import requests
+import urllib
+import base64
+
 # Create your views here.
 mydb = mysql.connector.connect(host="localhost", user="room_displayer",passwd="Password!23", database="room_displayer", charset='utf8mb4')
 mycursor=mydb.cursor()
@@ -159,12 +165,53 @@ def location(request, dep_id, room_id):
     mycursor.execute(slQ, { 'id': room_id })
 
     room = mycursor.fetchall()
-
     sala_name = room[0][1]
+
+    x = requests.get('http://websig.ua.pt/arcgis/rest/services/ed4/electronica/MapServer/find?searchText=' + sala_name + '&contains=true&searchFields=Porta&sr=&layers=14&layerDefs=&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&dynamicLayers=&returnZ=false&returnM=false&gdbVersion=&f=pjson', stream=True)
+    x_data = x.json()
+    allRings = x_data['results'][0]['geometry']['rings'][0]
+
+    rings = ProcessaListaPontos(allRings)
+
+    x2 = requests.get('http://websig.ua.pt/ArcGIS/rest/services/ed4/electronica/MapServer/export?bbox=0&bboxSR=102161&layers=14&layerdefs=&size=960,640&imageSR=102161&format=png24&transparent=true&time=&layerTimeOptions=&f=json', stream=True)
+    js = x2.json()
+    mapa = js['href']
+    xmin = js['extent']['xmin']
+    xmax = js['extent']['xmax']
+    ymin = js['extent']['ymin']
+    ymax = js['extent']['ymax']
+    imgW = js['width']
+    imgH = js['height']
+
+    proRings = ListaPontos(rings, xmin, xmax, ymin, ymax, imgW, imgH)
+
+    resp = urllib.request.urlopen(mapa)
+    imgn = numpy.asarray(bytearray(resp.read()), dtype = "uint8")
+    img = cv2.imdecode(imgn, cv2.IMREAD_COLOR)
+    img = cv2.flip(img, 0)
+
+    prevRing = proRings[0]
+
+    for nextring in proRings:
+        cv2.line(img, (int(prevRing[0]), int(prevRing[1])), (int(nextring[0]), int(nextring[1])), (0,0,255), 2)
+        prevRing = nextring
+
+    img = cv2.flip(img, 0)
+
+    nothing, img_str = cv2.imencode('.png', img)
+    img_base64 = base64.b64encode(img_str)
+
+    cv2.destroyAllWindows()
+    del img
+    del resp
+    del imgn
+    del img_str
+	
     context = {
         'room_name': sala_name,
+        'img': img_base64,
     }
-
+	
     return render(request, 'localizacao.html', context = context)
 
 ######################################################################################
@@ -305,3 +352,28 @@ def freeUntil(rid, time):
         return str(soon[0]) + ":" + str(soon[1]) + "0"
     else:
         return str(soon[0]) + ":" + str(soon[1])
+		
+#########################################################################################
+		
+def ListaPontos(lista_pontosf, xmin, xmax, ymin, ymax, imgW, imgH):
+    res_pontos = []
+    c1 = (xmax - xmin) / imgW
+    c2 = (ymax - ymin) / imgH
+    
+    for lf in lista_pontosf:
+        x = int((lf[0] - xmin) / c1)
+        y = int((lf[1] - ymin) / c2)
+        res_pontos += [[x,y]]
+
+    return res_pontos;
+
+#########################################################################################
+
+def ProcessaListaPontos(pontos_raw):
+    res1 = []
+    for pontos_raw2 in pontos_raw:
+        res1 += [[float(pontos_raw2[0]), float(pontos_raw2[1])]]
+        
+    return res1;
+
+##########################################################################################
