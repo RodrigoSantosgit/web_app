@@ -3,11 +3,12 @@ from .models import Building, Room, Event, EventType
 from django.http import Http404
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
-import cv2
-import numpy
 import requests
 import urllib
 import base64
+from PIL import Image, ImageDraw
+import PIL
+from io import BytesIO
 # Create your views here.
 
 def index(request):
@@ -181,22 +182,24 @@ def location(request, dep_id, room_id):
 
     proRings = ListaPontos(rings, xmin, xmax, ymin, ymax, imgW, imgH)
 
-    resp = urllib.request.urlopen(mapa)
-    img = numpy.asarray(bytearray(resp.read()), dtype = "uint8")
-    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
-    img = cv2.flip(img, 0)
+    resp = requests.get(mapa)
+
+    img = Image.open(BytesIO(resp.content))
+    img = img.transpose(PIL.Image.FLIP_TOP_BOTTOM)
 
     prevRing = proRings[0]
 
     for nextring in proRings:
-        cv2.line(img, (int(prevRing[0]), int(prevRing[1])), (int(nextring[0]), int(nextring[1])), (0,0,255), 2)
+        imgD = ImageDraw.Draw(img)
+        imgD.line([(int(prevRing[0]), int(prevRing[1])), (int(nextring[0]), int(nextring[1]))], fill=(255,0,0), width=3)
         prevRing = nextring
 
-    img = cv2.flip(img, 0)
+    img = img.transpose(PIL.Image.FLIP_TOP_BOTTOM)
 
-    nothing, img_str = cv2.imencode('.png', img)
-    img_base64 = base64.b64encode(img_str)
-    print(img_base64[2:-1])
+    imgBytes = BytesIO()
+    img.save(imgBytes, format='png')
+    img_base64 = base64.b64encode(imgBytes.getvalue())
+    img.close()
     context = {
         'room_name': sala_name,
         'img': img_base64,
